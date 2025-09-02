@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { ChevronDown, Info } from 'lucide-preact';
+import { ChevronDown, Info, ArrowUpDown } from 'lucide-preact';
 import type { SleepCycle } from '../utils/sleepCalculator';
 import { getRecommendedCycle } from '../utils/sleepCalculator';
 
@@ -11,12 +11,20 @@ export function SleepResults({ cycles }: SleepResultsProps) {
   if (cycles.length === 0) return null;
 
   const [showAll, setShowAll] = useState(false);
+  const [sortAscending, setSortAscending] = useState(true);
   const recommended = getRecommendedCycle(cycles);
+
+  // Sort cycles by sleep duration
+  const sortedCycles = [...cycles].sort((a, b) => {
+    const aHours = a.cycleCount * 1.5;
+    const bHours = b.cycleCount * 1.5;
+    return sortAscending ? aHours - bHours : bHours - aHours;
+  });
 
   // Show recommended + 2 other cycles by default
   const visibleCycles = showAll
-    ? cycles
-    : cycles.filter((_, index) => index < 3);
+    ? sortedCycles
+    : sortedCycles.filter((_, index) => index < 3);
 
   const formatTimeDisplay = (cycle: SleepCycle) => {
     const { hours, minutes, period } = cycle.time;
@@ -47,6 +55,17 @@ export function SleepResults({ cycles }: SleepResultsProps) {
           <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
           Based on sleep cycles
         </div>
+      </div>
+
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-medium text-gray-300">Other Options</h3>
+        <button
+          onClick={() => setSortAscending(!sortAscending)}
+          className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 hover:text-gray-200 bg-gray-700/50 hover:bg-gray-600/50 border border-gray-600 hover:border-gray-500 rounded-lg transition-all duration-200"
+        >
+          <ArrowUpDown size={14} />
+          Sleep Duration {sortAscending ? 'Ascending' : 'Descending'}
+        </button>
       </div>
 
       <div className="grid gap-3">
@@ -92,7 +111,7 @@ export function SleepResults({ cycles }: SleepResultsProps) {
             <span>
               {showAll
                 ? 'Show Less'
-                : `Show ${cycles.length - visibleCycles.length} More Options`}
+                : `Show ${sortedCycles.length - visibleCycles.length} More Options`}
             </span>
             <ChevronDown
               size={16}
