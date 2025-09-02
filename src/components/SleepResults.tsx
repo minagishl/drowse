@@ -111,7 +111,13 @@ export function SleepResults({ cycles }: SleepResultsProps) {
             <span>
               {showAll
                 ? 'Show Less'
-                : `Show ${sortedCycles.length - visibleCycles.length} More Options`}
+                : `Show ${
+                    cycles.length -
+                    visibleCycles.filter(
+                      (cycle) => cycle.cycleCount !== recommended.cycleCount
+                    ).length -
+                    1
+                  } More Options`}
             </span>
             <ChevronDown
               size={16}
