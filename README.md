@@ -84,7 +84,8 @@ The built files will be in the `dist` directory.
 src/
 ├── components/
 │   ├── SleepResults.tsx    # Results display component
-│   └── TimeSelector.tsx    # Time input component
+│   ├── TimeSelector.tsx    # Time input component
+│   └── UsageModal.tsx      # Usage guide modal
 ├── utils/
 │   └── sleepCalculator.ts  # Sleep cycle calculation logic
 ├── app.tsx                 # Main application component
