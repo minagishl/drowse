@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { ArrowLeft } from 'lucide-preact';
 import { TimeSelector } from './components/TimeSelector';
 import { SleepResults } from './components/SleepResults';
@@ -42,6 +42,7 @@ export function App() {
 
     setResults(cycles);
     setShowResults(true);
+    window.history.pushState({}, '', '/#results');
   };
 
   const handleSleepNow = () => {
@@ -49,11 +50,22 @@ export function App() {
     const cycles = calculateSleepNowTimes();
     setResults(cycles);
     setShowResults(true);
+    window.history.pushState({}, '', '/#results');
   };
 
   const handleBackToInput = () => {
     setShowResults(false);
+    window.history.pushState({}, '', '/');
   };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setShowResults(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900">
