@@ -70,7 +70,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-dvh bg-gray-900">
       <main className="container mx-auto px-4 py-4 sm:py-6">
         {/* Main Content */}
         <div className="max-w-lg sm:mt-8 mx-auto">

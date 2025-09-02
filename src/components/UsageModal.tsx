@@ -19,7 +19,7 @@ export function UsageModal({ isOpen, onClose }: UsageModalProps) {
       className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
       onClick={handleBackdropClick}
     >
-      <div className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-gray-700">
+      <div className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[80dvh] overflow-y-auto border border-gray-700">
         <div className="sticky top-0 bg-gray-800 border-b border-gray-700 px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-white">
             How to Use Drowse
