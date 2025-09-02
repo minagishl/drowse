@@ -57,7 +57,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <div className="container mx-auto px-4 py-6 sm:py-8">
+      <main className="container mx-auto px-4 py-4 sm:py-6">
         {/* Main Content */}
         <div className="max-w-lg sm:mt-8 mx-auto">
           {!showResults ? (
@@ -158,6 +158,9 @@ export function App() {
                         <button
                           onClick={handleCalculate}
                           className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200"
+                          aria-label={`Calculate optimal ${
+                            timeType === 'wake' ? 'bedtime' : 'wake-up time'
+                          } based on sleep cycles`}
                         >
                           Calculate
                         </button>
@@ -170,13 +173,16 @@ export function App() {
           ) : (
             <>
               {/* Results Only */}
-              {results.length > 0 && <SleepResults cycles={results} />}
+              <section aria-label="Sleep calculation results">
+                {results.length > 0 && <SleepResults cycles={results} />}
+              </section>
 
               {/* Back Button and Copyright */}
-              <div className="mt-8 flex justify-between items-center">
+              <nav className="mt-8 flex justify-between items-center">
                 <button
                   onClick={handleBackToInput}
                   className="flex items-center gap-2 text-gray-400 hover:text-gray-200 transition-colors"
+                  aria-label="Go back to sleep calculator input"
                 >
                   <ArrowLeft size={20} />
                   Back to input
@@ -187,15 +193,25 @@ export function App() {
                     href="https://minagishl.com"
                     target="_blank"
                     className="text-green-400 hover:text-green-300 transition-colors"
+                    rel="noopener noreferrer"
                   >
                     minagishl
                   </a>
                 </div>
-              </div>
+              </nav>
             </>
           )}
         </div>
-      </div>
+      </main>
+
+      <footer className="container mx-auto px-4 pb-6">
+        <div className="max-w-lg mx-auto text-center text-xs text-gray-500">
+          <p>
+            Sleep cycles are approximately 90 minutes long. This calculator
+            helps you wake up at the end of a sleep cycle for better rest.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
