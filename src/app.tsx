@@ -2,6 +2,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { ArrowLeft } from 'lucide-preact';
 import { TimeSelector } from './components/TimeSelector';
 import { SleepResults } from './components/SleepResults';
+import { UsageModal } from './components/UsageModal';
 import {
   calculateWakeUpTimes,
   calculateBedtimes,
@@ -28,6 +29,7 @@ export function App() {
   });
   const [results, setResults] = useState<SleepCycle[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [showUsageModal, setShowUsageModal] = useState(false);
 
   const handleCalculate = () => {
     let cycles: SleepCycle[] = [];
@@ -217,13 +219,24 @@ export function App() {
       </main>
 
       <footer className="container mx-auto px-4 pb-6">
-        <div className="max-w-lg mx-auto text-center text-xs text-gray-500">
+        <div className="max-w-lg mx-auto text-center text-xs text-gray-500 space-y-2">
           <p>
             Sleep cycles are approximately 90 minutes long. This calculator
             helps you wake up at the end of a sleep cycle for better rest.
           </p>
+          <button
+            onClick={() => setShowUsageModal(true)}
+            className="text-green-400 hover:text-green-300 transition-colors underline"
+          >
+            How to Use Drowse
+          </button>
         </div>
       </footer>
+
+      <UsageModal
+        isOpen={showUsageModal}
+        onClose={() => setShowUsageModal(false)}
+      />
     </div>
   );
 }
