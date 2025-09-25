@@ -92,7 +92,7 @@ export function ShareModal({
             Share on social media
           </h3>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid sm:grid-cols-2 grid-cols-1 gap-3">
             <button
               onClick={handleTwitterShare}
               className="flex items-center justify-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors cursor-pointer"
