@@ -2,6 +2,8 @@ import { useState } from 'preact/hooks';
 import { ChevronDown, Info, ArrowUpDown } from 'lucide-preact';
 import type { SleepCycle } from '../utils/sleepCalculator';
 import { getRecommendedCycle } from '../utils/sleepCalculator';
+import { ShareButtons } from './ShareButtons';
+import { ShareModal } from './ShareModal';
 
 interface SleepResultsProps {
   cycles: SleepCycle[];
@@ -12,6 +14,7 @@ export function SleepResults({ cycles }: SleepResultsProps) {
 
   const [showAll, setShowAll] = useState(false);
   const [sortAscending, setSortAscending] = useState(true);
+  const [showShareModal, setShowShareModal] = useState(false);
   const recommended = getRecommendedCycle(cycles);
 
   // Sort cycles by sleep duration
@@ -55,6 +58,10 @@ export function SleepResults({ cycles }: SleepResultsProps) {
           <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
           Based on sleep cycles
         </div>
+        <ShareButtons
+          recommendedCycle={recommended}
+          onShareClick={() => setShowShareModal(true)}
+        />
       </div>
 
       <div className="flex items-center justify-between mb-4">
@@ -143,6 +150,12 @@ export function SleepResults({ cycles }: SleepResultsProps) {
           </div>
         </div>
       </div>
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        recommendedCycle={recommended}
+      />
     </div>
   );
 }

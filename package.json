@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.1.12",
     "lucide-preact": "^0.542.0",
     "preact": "^10.27.1",
+    "react-icons": "^5.5.0",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
