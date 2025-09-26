@@ -2,4 +2,5 @@
 
 body {
   overscroll-behavior-y: none !important;
+  @apply bg-gray-900;
 }
